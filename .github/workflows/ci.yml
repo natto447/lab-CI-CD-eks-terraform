@@ -14,16 +14,19 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Configurar ambiente Node (exemplo)
+      - name: Configurar ambiente Node
         uses: actions/setup-node@v4
         with:
           node-version: "18"
 
       - name: Instalar dependências
+        working-directory: ./app
         run: npm install
 
       - name: Rodar testes
+        working-directory: ./app
         run: npm test
 
       - name: Build do projeto
+        working-directory: ./app
         run: npm run build
