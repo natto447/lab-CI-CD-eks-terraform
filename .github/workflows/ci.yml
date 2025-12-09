@@ -1,4 +1,4 @@
-name: CI
+name: Terraform CI
 
 on:
   push:
@@ -11,22 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar ambiente Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v3
 
-      - name: Instalar dependências
-        working-directory: ./app
-        run: npm install
+      - name: Terraform Init
+        run: terraform init
 
-      - name: Rodar testes
-        working-directory: ./app
-        run: npm test
-
-      - name: Build do projeto
-        working-directory: ./app
-        run: npm run build
+      - name: Terraform Validate
+        run: terraform validate
